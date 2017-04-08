@@ -20,7 +20,7 @@ do
     to_user=$(echo $msg | cut -d " " -f 1 | tr '[:upper:]' '[:lower:]')
     contents=$(echo $msg | cut -d " " -f 2-)
 
-    echo "$to_user:
+    echo "$from_user:
     $contents" | cowsay -n -f ./reverse.cow
     curl -s -X POST -d "{ \"from\": \"$from_user\", \"contents\": \"$contents\" }" \
       "https://cowchat-bd025.firebaseio.com/users/$to_user/messages.json" > /dev/null
