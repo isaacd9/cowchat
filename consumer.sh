@@ -1,6 +1,7 @@
 
 from_user=$1;
-echo "Hi $from_user! MOOOOOOOOOOOOOOOOOO";
+room=$2;
+echo "Hi $from_user, joining to $room! MOOOOOOOOOOOOOOOOOO";
 
 while read meth
 do
@@ -11,18 +12,16 @@ do
     from=$(echo $data | jq -r ".from");
     contents=$(echo $data | jq -r ".contents");
 
-    if [[ $contents != "null" ]];  then
+    if [[ $contents != "null" && $from != $from_user ]];  then
       echo "$from:
       $contents" | cowsay -n
     fi
   elif [[ $meth =~ "@" ]]; then
     msg=$(echo $meth | cut -d "@" -f 2)
-    to_user=$(echo $msg | cut -d " " -f 1 | tr '[:upper:]' '[:lower:]')
-    contents=$(echo $msg | cut -d " " -f 2-)
 
     echo "$from_user:
-    $contents" | cowsay -n -f ./reverse.cow
-    curl -s -X POST -d "{ \"from\": \"$from_user\", \"contents\": \"$contents\" }" \
-      "https://cowchat-bd025.firebaseio.com/users/$to_user/messages.json" > /dev/null
+    $msg" | cowsay -n -f ./reverse.cow
+    curl -s -X POST -d "{ \"from\": \"$from_user\", \"contents\": \"$msg\" }" \
+      "https://cowchat-bd025.firebaseio.com/rooms/$room/messages.json" > /dev/null
   fi
 done < /dev/stdin

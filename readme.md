@@ -1,0 +1,1 @@
+`./cowchat.sh <name> <room>`
