@@ -3,6 +3,10 @@ from_user=$1;
 room=$2;
 echo "Hi $from_user, joining to $room! MOOOOOOOOOOOOOOOOOO";
 
+room_join="$from_user has joined $room"
+curl -s -X POST -d "{ \"from\": \"COWCHAT\", \"contents\": \"$room_join\" }" \
+  "https://cowchat-bd025.firebaseio.com/rooms/$room/messages.json" > /dev/null
+
 while read meth
 do
   if [[ $meth =~ "put" ]]; then
@@ -13,6 +17,7 @@ do
     contents=$(echo $data | jq -r ".contents");
 
     if [[ $contents != "null" && $from != $from_user ]];  then
+      say "moooooooooooooooooooooo"
       echo "$from:
       $contents" | cowsay -n
     fi
