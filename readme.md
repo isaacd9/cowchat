@@ -1,2 +1,12 @@
-`./cowchat.sh <name> <room>`
-`@<msg>` to send a message
+```
+ ______________________________
+/ `./cowchat.sh <name> <room>` \
+|                              |
+\ `@<msg>` to send a message   /
+ ------------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+```
